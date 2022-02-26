@@ -30,56 +30,51 @@ transform rotate_atl:
 screen bdgr_main_menu:
     modal True tag menu
 
-    add "white"
-    text "Animeted background" size 150 color "#bababa" align(0.5,0.5) at rotate_atl
-    text "Bright Days Of Grey Reality" size 75 color "#000" pos(867,446)
+    add "bdgr/imgs/gui/main_menu_background.jpg"
+    add "bdgr/imgs/gui/phone.png" ypos 14
+    add "bdgr/imgs/gui/logo_rus.png" pos(692,392)
 
-    frame:
-        minimum(582,994) maximum(582,994) pos(74,23)
-        background "#0000007b"
+    imagebutton:
+        pos(152,281)
+        auto "bdgr/imgs/gui/start_%s.png"
+        action Start("bdgr_start")
 
-    side "c":
-        area(74,23,582,994)
-        grid 2 3 xfill False spacing 36 align(0.5,0.5):
+    imagebutton:
+        pos(142,505)
+        auto "bdgr/imgs/gui/load_%s.png"
+        action ShowMenu("load")
 
-            button:
-                maximum(231,209) minimum(231,209)
-                action Start("bdgr_start")
-                style "bdgr_main_menu_button"
-                text "New Game"
-            button:
-                maximum(231,209) minimum(231,209)
-                action ShowMenu("load")
-                style "bdgr_main_menu_button"
-                text "Load"
+    imagebutton:
+        pos(287,505)
+        auto "bdgr/imgs/gui/prefs_%s.png"
+        action ShowMenu("preferences")
 
-            button:
-                maximum(231,209) minimum(231,209)
-                action NullAction()
-                style "bdgr_main_menu_button"
-                text "Gallery"
-            button:
-                maximum(231,209) minimum(231,209)
-                action NullAction()
-                style "bdgr_main_menu_button"
-                text "Titles"
+    imagebutton:
+        pos(442,505)
+        auto "bdgr/imgs/gui/gallery_%s.png"
+        action NullAction() #ShowMenu("gallery")
 
-            button:
-                maximum(231,209) minimum(231,209)
-                action NullAction()
-                style "bdgr_main_menu_button"
-                text "Discord"
-            button:
-                maximum(231,209) minimum(231,209)
-                action OpenURL("https://vk.com/es.bdgr")
-                style "bdgr_main_menu_button"
-                text "VK"
+    imagebutton:
+        pos(171,684)
+        auto "bdgr/imgs/gui/authors_%s.png"
+        action NullAction()
 
-    button:
-        maximum(364,78) minimum(364,78) pos(1556,981)
+    imagebutton:
+        pos(304,684)
+        auto "bdgr/imgs/gui/ds_%s.png"
+        action NullAction()
+
+    imagebutton:
+        pos(442,684)
+        auto "bdgr/imgs/gui/vk_%s.png"
+        action OpenURL("https://vk.com/es.bdgr")
+
+    imagebutton:
+        pos(270,877)
+        auto "bdgr/imgs/gui/exit_%s.png"
         action [Hide("bdgr_main_menu"), (Function(bdgr_screens_default)), ShowMenu("main_menu")]
-        style "bdgr_main_menu_button"
-        text "exit"
+
+    key "K_ESCAPE" action [Hide("bdgr_main_menu"), (Function(bdgr_screens_default)), ShowMenu("main_menu")]
 
 label bdgr:
     $ bdgr_screens_save_activate()
