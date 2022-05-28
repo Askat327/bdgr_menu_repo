@@ -8,7 +8,9 @@ init -1000 python:
     translation_ru.update({"the_interactive": "Интерактивный\n"})
     translation_ru.update({"interactive_desc": "{size=30}анимационные фоны и множество эффектов"})
     translation_ru.update({"the_static": "Статичный\n"})
-    translation_ru.update({"static_desc": "{size=30}статичные фоны и минимум эффетов"})
+    translation_ru.update({"static_desc": "{size=30}статичные фоны и минимум эффектов"})
+    translation_ru.update({"chars": "ПЕРСОНАЖИ"})
+    translation_ru.update({"mus": "МУЗЫКА"})
 
     translation_en.update({"on": "On"})
     translation_en.update({"off": "Off"})
@@ -20,3 +22,5 @@ init -1000 python:
     translation_en.update({"interactive_desc": "{size=30}animated backgrounds and many effects"})
     translation_en.update({"the_static": "Static"})
     translation_en.update({"static_desc": "{size=30}static backgrounds and minimal effects"})
+    translation_en.update({"chars": "CHARACTERS"})
+    translation_en.update({"mus": "MUSIC"})
