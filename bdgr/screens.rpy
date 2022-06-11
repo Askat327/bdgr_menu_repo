@@ -85,7 +85,8 @@ init python:
             try:
                 ui.add(sprite_name, xpos=centered, ypos=1.0, xalign=centered, yalign=1.0, zoom=0.7)
             except:
-                ui.text("[[ДАННЫЕ НЕДОСТУПНЫ]", xpos=centered, ypos=centered, xalign=centered, yalign=centered)
+                pass
+                # ui.text("[[ДАННЫЕ НЕДОСТУПНЫ]", xpos=centered, ypos=centered, xalign=centered, yalign=centered)
 
     def get_value_cnt(dic):
         """
@@ -144,9 +145,10 @@ init:
     screen bdgr_skip_button():
         $ timeofday = persistent.bdgr_timeofday
 
-        if not config.skipping:
-            imagebutton auto "bdgr/imgs/gui/dialogue_box/"+timeofday+"/forward_%s.png" pos(1810,946) action Skip() mouse "hover_anim"
-        else:
+        # if not config.skipping:
+        #     imagebutton auto "bdgr/imgs/gui/dialogue_box/"+timeofday+"/forward_%s.png" pos(1810,946) action Skip() mouse "hover_anim"
+        # else:
+        if config.skipping:
             if timeofday == "winter":
                 add "bdgr_skip_anim_winter" pos(1810,946)
             elif  timeofday == "spring":
@@ -619,7 +621,9 @@ screen bdgr_say:
 
         imagebutton auto "bdgr/imgs/gui/dialogue_box/"+timeofday+"/backward_%s.png" pos(31,946) action ShowMenu("text_history") mouse "hover_anim"
 
-        use bdgr_skip_button
+        # use bdgr_skip_button
+        if not config.skipping:
+            imagebutton auto "bdgr/imgs/gui/dialogue_box/"+timeofday+"/forward_%s.png" pos(1810,946) action Skip() mouse "hover_anim"
 
 
 screen bdgr_nvl:
@@ -656,7 +660,9 @@ screen bdgr_nvl:
 
     imagebutton auto "bdgr/imgs/gui/dialogue_box/"+timeofday+"/backward_%s.png" pos(31,946) action ShowMenu("text_history") mouse "hover_anim"
 
-    use bdgr_skip_button
+    # use bdgr_skip_button
+    if not config.skipping:
+        imagebutton auto "bdgr/imgs/gui/dialogue_box/"+timeofday+"/forward_%s.png" pos(1810,946) action Skip() mouse "hover_anim"
 
 
 screen bdgr_text_history_screen:
