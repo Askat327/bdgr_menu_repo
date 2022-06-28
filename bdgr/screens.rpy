@@ -202,7 +202,7 @@ screen bdgr_main_menu:
     imagebutton:
         pos(300,900)
         auto "bdgr/imgs/gui/main_menu/exit_%s.png"
-        action [Hide("bdgr_main_menu"), (Function(bdgr_screens_default)), ShowMenu("main_menu")] mouse "hover_anim"
+        action ShowMenu('quit') mouse "hover_anim"
 
     key "K_ESCAPE" action [Hide("bdgr_main_menu"), (Function(bdgr_screens_default)), ShowMenu("main_menu")]
 
@@ -750,3 +750,15 @@ screen bdgr_choice:
                     text caption font header_font size 37 hover_size 37 color choice_colors[persistent.bdgr_timeofday] hover_color choice_colors_hover[persistent.bdgr_timeofday] xcenter 0.5 text_align 0.5
             else:
                 text caption font header_font size 60 color choice_colors[persistent.bdgr_timeofday] text_align 0.5 xcenter 0.5
+
+screen bdgr_quit:
+    modal True
+
+    $ tod = persistent.bdgr_timeofday
+
+    add "bdgr/imgs/gui/o_rly/"+tod+"/based.png" xalign 0.5 yalign 0.5
+
+    text translation_new["Quit_confirm"] text_align 0.5 yalign 0.46 xalign 0.5 style "bdgr_phone_menu"
+
+    imagebutton auto "bdgr/imgs/gui/o_rly/"+tod+"/yes_%s.png" yalign 0.56 xalign 0.35 action Quit(confirm=False) mouse "hover_anim"
+    imagebutton auto "bdgr/imgs/gui/o_rly/"+tod+"/no_%s.png" yalign 0.56 xalign 0.65 action Hide("bdgr_quit", dissolve) mouse "hover_anim"

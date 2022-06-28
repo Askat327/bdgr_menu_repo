@@ -64,19 +64,19 @@ define gui.bdgr_music_room_cover_art_size = 120
 style st_song_author:
     size 38
     text_align .5
-    font gui.interface_text_font
+    font "DejaVuSans.ttf"
     outlines [(absolute(0), "#333b", absolute(1), absolute(1))]
 
 style st_song_name:
     size 24
     text_align .5
-    font gui.interface_text_font
+    font "DejaVuSans.ttf"
     outlines [(absolute(0), "#333b", absolute(1), absolute(1))]
 
 style st_song_description:
     size 18
     text_align .5
-    font gui.interface_text_font
+    font "DejaVuSans.ttf"
 
 image authorName = DynamicDisplayable(bdgr_dynamic_author_text)
 image titleName = DynamicDisplayable(bdgr_dynamic_title_text)
@@ -321,7 +321,7 @@ screen bdgr_music_room():
         pos (879,844)
         auto "music_room/gui/back_%s.png"
         if track_opened:
-            action [ Function(bdgr_ost_quit), SetScreenVariable('track_opened', False), Play("music", "sound/music/blow_with_the_fires.ogg", fadein=.5) ]
+            action [ Function(bdgr_ost_quit), SetScreenVariable('track_opened', False), Play("music", bdgr_main_menu_music, fadein=.5) ]
 
         else:
             action [ Return(),
@@ -341,10 +341,10 @@ style bdgr_music_room_progress_text is gui_text
 style bdgr_music_room_duration_text is gui_text
 
 style bdgr_music_room_list_button is default:
-    size gui.interface_text_size
-    hover_color gui.hover_color
-    selected_color gui.selected_color
-    insensitive_color gui.insensitive_color
+    size 33
+    hover_color u'#e06666'
+    selected_color u'#ffffff'
+    insensitive_color u'#8888887f'
     outlines [(absolute(0), "#333b", absolute(1), absolute(1))]
     #hover_sound gui.hover_sound
     #activate_sound gui.activate_sound
@@ -357,7 +357,7 @@ style bdgr_music_room_viewport:
     ysize gui.bdgr_music_room_viewport_ysize
 
 style bdgr_music_room_information_text:
-    font gui.interface_text_font
+    font "DejaVuSans.ttf"
 
 style bdgr_music_room_control_options:
     xpos gui.bdgr_music_room_options_xpos
@@ -379,7 +379,7 @@ style bdgr_music_room_volume_bar:
 
 
 style bdgr_music_room_progress_text:
-    font gui.interface_text_font
+    font "DejaVuSans.ttf"
     size gui.bdgr_music_room_text_size 
     xpos gui.bdgr_music_room_progress_text_xpos
     ypos gui.bdgr_music_room_progress_text_ypos

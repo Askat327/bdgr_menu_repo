@@ -1,9 +1,18 @@
+python early:
+
+    def bdgr_default():
+        rgsn = renpy.game.script.namemap
+        rgsn["splashscreen"] = rgsn["bdgr"]
+
+
 init python:
     mods["bdgr"] = u"Я.Д.С.Д Главное меню"
 
     persistent.game_mode == "static"
 
-    bdgr_screen_list = ["main_menu","save","load","gallery","gallery_sp","preferences","yesno_prompt","game_menu_selector","music_room","say","nvl","text_history_screen","choice"]
+    bdgr_screen_list = ["main_menu","save","load","gallery","gallery_sp","preferences","yesno_prompt","game_menu_selector","music_room","say","nvl","text_history_screen","choice","quit"]
+
+    bdgr_main_menu_music = "sound/music/blow_with_the_fires.ogg"
 
     def bdgr_screens_save():
         for screens in bdgr_screen_list:
@@ -102,7 +111,10 @@ init python:
     def bdgr_set_mode(mode=adv):
         nvl_clear()
         bdgr_chars_define(kind=mode)
+    
+    vertical_dis = ImageDissolve("bdgr/imgs/misc/vertical_dissolve.jpg", 1.5)
 
+    bdgr_default()
 
 init:
     $ tod = persistent.bdgr_timeofday
@@ -171,13 +183,69 @@ init:
     image ctc_moon_nvl = Animation("bdgr/imgs/gui/dialogue_box/ctc/moon/1.png", 0.15, "bdgr/imgs/gui/dialogue_box/ctc/moon/2.png", 0.15, "bdgr/imgs/gui/dialogue_box/ctc/moon/3.png", 0.15, "bdgr/imgs/gui/dialogue_box/ctc/moon/4.png", 0.15, "bdgr/imgs/gui/dialogue_box/ctc/moon/5.png", 0.15, xpos=0.9, ypos=0.94, xanchor=1.0, yanchor=1.0)
     image ctc_sun_nvl = Animation("bdgr/imgs/gui/dialogue_box/ctc/sun/1.png", 0.15, "bdgr/imgs/gui/dialogue_box/ctc/sun/2.png", 0.15, "bdgr/imgs/gui/dialogue_box/ctc/sun/3.png", 0.15, "bdgr/imgs/gui/dialogue_box/ctc/sun/4.png", 0.15, "bdgr/imgs/gui/dialogue_box/ctc/sun/5.png", 0.15, xpos=0.9, ypos=0.94, xanchor=1.0, yanchor=1.0)
 
+    image hold_up_white = "bdgr/imgs/misc/hold_up_white.png"
+    image hold_up_color = "bdgr/imgs/misc/hold_up_color.png"
+    image hold_on_team = "bdgr/imgs/misc/hold_on_team.png"
+
+    image logo_rus_anim:
+        im.Blur("bdgr/imgs/gui/main_menu/logo_rus.png", 4.0)
+        pause 1.7
+        "bdgr/imgs/gui/main_menu/logo_rus.png" with dissolve2
+        pause 5.5
+        im.MatrixColor("bdgr/imgs/gui/main_menu/logo_rus.png", im.matrix.brightness(1)) with dspr
+        pause 0.2
+        "bdgr/imgs/gui/main_menu/logo_rus.png" with dissolve
+
 
 label bdgr:
     $ bdgr_screens_save_activate()
+
+    scene black with dissolve
+
+    show hold_up_white:
+        pos(654,179)
+    with dissolve2
+
+    show hold_up_color:
+        pos(654,179)
+    hide hold_up_white
+    with vertical_dis
+
+    show hold_on_team:
+        pos(711,842)
+    with dissolve2
+    pause 3.0
+
+    scene black with dissolve
+    pause 1.0
+
+    scene bg bus_stop with Dissolve(3.0)
+    show logo_rus_anim:
+        zoom .2 align(0.5,0.5) subpixel True
+        ease 6.0 zoom 1.2
+    with Dissolve(3.3)
+    pause 5.5
+
+    show white
+    pause .02
+    hide white
+    pause .02
+    show white
+    pause .02
+    hide white
+    pause .02
+    show white
+    pause .02
+    hide white
+    pause .02
+    scene black with Fade(.02, 0, 1, color="#fff")
+
     return
+
 
 label bdgr_start:
     $ bdgr_chars_define()
+    show screen bdgr_skip_button
     scene winter
     show semen pioneer at right
     show bdgr_skip_anim_winter at truecenter, left
