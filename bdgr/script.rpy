@@ -1,5 +1,7 @@
 python early:
 
+    bdgr_timeofday = "night"
+
     def bdgr_default():
         rgsn = renpy.game.script.namemap
         rgsn["splashscreen"] = rgsn["bdgr"]
@@ -38,8 +40,10 @@ init python:
     def bdgr_mouse_change(tod="winter"):
         if tod == "winter":
             config.mouse_displayable = MouseDisplayable("bdgr/imgs/gui/cursor/winter/mouse_default.png", 0, 0).add("hover_anim", "bdgr_cursor_anim_w", 0, 0)
-        elif tod == "spring":
-            config.mouse_displayable = MouseDisplayable("bdgr/imgs/gui/cursor/spring/mouse_default.png", 0, 0).add("hover_anim", "bdgr_cursor_anim_s", 0, 0)
+        elif tod == "sunset":
+            config.mouse_displayable = MouseDisplayable("bdgr/imgs/gui/cursor/sunset/mouse_default.png", 0, 0).add("hover_anim", "bdgr_cursor_anim_s", 0, 0)
+        elif tod == "night":
+            config.mouse_displayable = MouseDisplayable("bdgr/imgs/gui/cursor/night/mouse_default.png", 0, 0).add("hover_anim", "bdgr_cursor_anim_n", 0, 0)
 
     bdgr_characters = {
         "narrator":[None, None],
@@ -53,7 +57,7 @@ init python:
         "dv":[u"Алиса", "#ec8b3d"],
         "ma":[u"Маша", "#34bdbd"],
         "un":[u"Лена", "#224cff"],
-        "sus":[u"Славя", "#f2b31c"],
+        "sl":[u"Славя", "#f2b31c"],
     }
 
     def bdgr_chars_define(kind=adv):
@@ -102,7 +106,7 @@ init python:
                 gl[i] = Character(j[0], kind=kind, who_color=j[1], who_drop_shadow=drop_shadow, who_suffix=who_suffix, what_color=what_color, what_drop_shadow=drop_shadow, ctc=ctc_leaf, ctc_position="fixed")
             elif i == "un":
                 gl[i] = Character(j[0], kind=kind, who_color=j[1], who_drop_shadow=drop_shadow, who_suffix=who_suffix, what_color=what_color, what_drop_shadow=drop_shadow, ctc=ctc_moon, ctc_position="fixed")
-            elif i == "sus":
+            elif i == "sl":
                 gl[i] = Character(j[0], kind=kind, who_color=j[1], who_drop_shadow=drop_shadow, who_suffix=who_suffix, what_color=what_color, what_drop_shadow=drop_shadow, ctc=ctc_sun, ctc_position="fixed")
             else:
                 gl[i] = Character(None, kind=kind, what_color=what_color, what_drop_shadow=drop_shadow, ctc=ctc_star, ctc_position="fixed")
@@ -114,10 +118,9 @@ init python:
     
     vertical_dis = ImageDissolve("bdgr/imgs/misc/vertical_dissolve.jpg", 1.5)
 
-    bdgr_default()
+    # bdgr_default()
 
 init:
-    $ tod = persistent.bdgr_timeofday
 
     image bdgr_cursor_anim_w:
         "bdgr/imgs/gui/cursor/winter/1.png"
@@ -147,21 +150,36 @@ init:
         repeat
 
     image bdgr_cursor_anim_s:
-        "bdgr/imgs/gui/cursor/spring/1.png"
+        "bdgr/imgs/gui/cursor/sunset/1.png"
         pause 0.1
-        "bdgr/imgs/gui/cursor/spring/2.png"
+        "bdgr/imgs/gui/cursor/sunset/2.png"
         pause 0.1
-        "bdgr/imgs/gui/cursor/spring/3.png"
+        "bdgr/imgs/gui/cursor/sunset/3.png"
         pause 0.1
-        "bdgr/imgs/gui/cursor/spring/4.png"
+        "bdgr/imgs/gui/cursor/sunset/4.png"
         pause 0.1
-        "bdgr/imgs/gui/cursor/spring/5.png"
+        "bdgr/imgs/gui/cursor/sunset/5.png"
         pause 0.1
-        "bdgr/imgs/gui/cursor/spring/6.png"
+        "bdgr/imgs/gui/cursor/sunset/6.png"
         pause 0.1
-        "bdgr/imgs/gui/cursor/spring/7.png"
+        "bdgr/imgs/gui/cursor/sunset/7.png"
         pause 0.1
-        "bdgr/imgs/gui/cursor/spring/8.png"
+        "bdgr/imgs/gui/cursor/sunset/8.png"
+        pause 0.1
+        repeat
+
+    image bdgr_cursor_anim_n:
+        "bdgr/imgs/gui/cursor/night/1.png"
+        pause 0.1
+        "bdgr/imgs/gui/cursor/night/2.png"
+        pause 0.1
+        "bdgr/imgs/gui/cursor/night/3.png"
+        pause 0.1
+        "bdgr/imgs/gui/cursor/night/4.png"
+        pause 0.1
+        "bdgr/imgs/gui/cursor/night/5.png"
+        pause 0.1
+        "bdgr/imgs/gui/cursor/night/6.png"
         pause 0.1
         repeat
 
@@ -251,11 +269,11 @@ label bdgr_start:
     show bdgr_skip_anim_winter at truecenter, left
     with dissolve
     
-    $ persistent.bdgr_timeofday = "winter"
+    $ bdgr_timeofday = "winter"
     $ bdgr_mouse_change("winter")
-    "persistent.bdgr_timeofday=\"winter\""
-    "persistent.bdgr_timeofday=\"winter\""
-    "persistent.bdgr_timeofday=\"winter\""
+    "bdgr_timeofday=\"winter\""
+    "bdgr_timeofday=\"winter\""
+    "bdgr_timeofday=\"winter\""
     me "Я Семён"
     grl "Я девочка"
     who "Сука я кто?"
@@ -263,7 +281,7 @@ label bdgr_start:
     dv "Я Алиса"
     ma "Я Маша"
     un "Я Лена"
-    sus "Я солнце"
+    sl "Я Славя"
     th "Я думаю"
     "Вот и всё"
     $ bdgr_set_mode(nvl)
@@ -277,7 +295,7 @@ label bdgr_start:
     dv "Я Алиса"
     ma "Я Маша"
     un "Я Лена"
-    sus "Я солнце"
+    sl "Я Славя"
     th "Я думаю"
     "Вот и всё"
     $ bdgr_set_mode()
@@ -286,20 +304,20 @@ label bdgr_start:
         "Da":
             pass
         "Niet":
-            $ persistent.bdgr_timeofday = "winter"
+            $ bdgr_timeofday = "winter"
             $ bdgr_mouse_change("winter")
             return
 
-    scene spring
+    scene sunset
     show semen pioneer at right
-    show bdgr_skip_anim_spring at truecenter, left
+    show bdgr_skip_anim_sunset at truecenter, left
     with dissolve
 
-    $ persistent.bdgr_timeofday = "spring"
-    $ bdgr_mouse_change("spring")
-    "persistent.bdgr_timeofday=\"spring\""
-    "persistent.bdgr_timeofday=\"spring\""
-    "persistent.bdgr_timeofday=\"spring\""
+    $ bdgr_timeofday = "sunset"
+    $ bdgr_mouse_change("sunset")
+    "bdgr_timeofday=\"sunset\""
+    "bdgr_timeofday=\"sunset\""
+    "bdgr_timeofday=\"sunset\""
     me "Я Семён"
     grl "Я девочка"
     who "Сука я кто?"
@@ -307,7 +325,7 @@ label bdgr_start:
     dv "Я Алиса"
     ma "Я Маша"
     un "Я Лена"
-    sus "Я солнце"
+    sl "Я Славя"
     th "Я думаю"
     "Вот и всё"
     $ bdgr_set_mode(nvl)
@@ -321,18 +339,59 @@ label bdgr_start:
     dv "Я Алиса"
     ma "Я Маша"
     un "Я Лена"
-    sus "Я солнце"
+    sl "Я Славя"
     th "Я думаю"
     "Вот и всё"
     $ bdgr_set_mode()
     menu continue:
         "Continue?"
         "Da":
-            "А дальше уже ничего нету."
-            $ persistent.bdgr_timeofday = "winter"
+            pass
+        "Niet":
+            $ bdgr_timeofday = "winter"
             $ bdgr_mouse_change("winter")
             return
+
+    scene night
+    show semen pioneer at right
+    show bdgr_skip_anim_night at truecenter, left
+    with dissolve
+
+    $ bdgr_timeofday = "night"
+    $ bdgr_mouse_change("night")
+    "bdgr_timeofday=\"night\""
+    "bdgr_timeofday=\"night\""
+    "bdgr_timeofday=\"night\""
+    me "Я Семён"
+    grl "Я девочка"
+    who "Сука я кто?"
+    us "Я Ульяна"
+    dv "Я Алиса"
+    ma "Я Маша"
+    un "Я Лена"
+    sl "Я Славя"
+    th "Я думаю"
+    "Вот и всё"
+    $ bdgr_set_mode(nvl)
+    "nvl mode1"
+    "nvl mode2"
+    "nvl mode3"
+    me "Я Семён"
+    grl "Я девочка"
+    who "Сука я кто?"
+    us "Я Ульяна"
+    dv "Я Алиса"
+    ma "Я Маша"
+    un "Я Лена"
+    sl "Я Славя"
+    th "Я думаю"
+    "Вот и всё"
+    $ bdgr_set_mode()
+    menu continue:
+        "Continue?"
+        "Da":
+            pass
         "Niet":
-            $ persistent.bdgr_timeofday = "winter"
+            $ bdgr_timeofday = "winter"
             $ bdgr_mouse_change("winter")
             return

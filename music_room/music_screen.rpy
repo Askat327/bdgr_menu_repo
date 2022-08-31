@@ -102,35 +102,9 @@ screen bdgr_music_room():
     default track_opened = bool(bdgr_game_soundtrack)
 
     add "images/bg/ext_beach_sunset.jpg"
-    add "music_room/gui/player.png" pos(589,24)
-    text translation_new["mus"] pos(815,50) style "bdgr_phone_menu" size 50 color "#e8f2fb"
+    add "music_room/gui/"+bdgr_timeofday+"/player.png" pos(589,24)
+    text translation_new["mus"] pos(835,50) style "bdgr_phone_menu" size 50 color "#e8f2fb"
     
-
-    vbox pos(1315,167) spacing 56:
-        imagebutton:
-            auto "music_room/gui/volume_max_%s.png"
-            action Function(preferences.set_volume, u'bdgr_music_room_mixer',
-                            volume=min_func(1.0, preferences.get_volume(u'bdgr_music_room_mixer') + .1))
-            mouse "hover_anim" 
-
-        imagebutton:
-            auto "music_room/gui/volume_min_%s.png"
-            action Function(preferences.set_volume, u'bdgr_music_room_mixer',
-                            volume=max(0.0, preferences.get_volume(u'bdgr_music_room_mixer') - .1))
-            mouse "hover_anim" 
-                            
-    ########################################################################
-    # Volume
-
-    vbar:
-        anchor (.5, .5)
-        xpos 1285
-        ypos 315
-
-        ysize 280
-
-        value Preference("bdgr_music_room_mixer volume")
-        mouse "hover_anim" bottom_bar "music_room/gui/vbar_full.png" top_bar "music_room/gui/vbar_null.png" thumb "music_room/gui/vthumb_idle.png" hover_thumb "music_room/gui/vthumb_hover.png" thumb_offset 21.5
 
     ########################################################################
 
@@ -243,9 +217,10 @@ screen bdgr_music_room():
                     xysize (64, 64)
 
                 if BdgrLoopSong:
-                    idle "music_room/gui/repeat_hover.png"
+                    idle "music_room/gui/"+bdgr_timeofday+"/repeat_hover.png"
                 else:
-                    auto "music_room/gui/repeat_%s.png"
+                    idle "music_room/gui/repeat_idle.png"
+                    hover "music_room/gui/"+bdgr_timeofday+"/repeat_hover.png"
 
                 action ToggleVariable("BdgrLoopSong", False, True)
                 mouse "hover_anim" 
@@ -257,9 +232,10 @@ screen bdgr_music_room():
                     xysize (64, 64)
 
                 if BdgrRandomSong:
-                    idle "music_room/gui/random_hover.png"
+                    idle "music_room/gui/"+bdgr_timeofday+"/random_hover.png"
                 else:
-                    auto "music_room/gui/random_%s.png"
+                    idle "music_room/gui/random_idle.png"
+                    hover "music_room/gui/"+bdgr_timeofday+"/random_hover.png"
                 
                 action ToggleVariable("BdgrRandomSong", False, True) 
                 mouse "hover_anim" 
@@ -270,7 +246,8 @@ screen bdgr_music_room():
                 at transform:
                     xysize (64, 64) 
 
-                auto "music_room/gui/next_%s.png"
+                idle "music_room/gui/next_idle.png"
+                hover "music_room/gui/"+bdgr_timeofday+"/next_hover.png"
 
                 if BdgrRandomSong: 
                     action [ Function(bdgr_random_song) ] 
@@ -284,7 +261,8 @@ screen bdgr_music_room():
                 at transform:
                     xysize (64, 64) 
 
-                auto "music_room/gui/previous_%s.png"
+                idle "music_room/gui/previous_idle.png"
+                hover "music_room/gui/"+bdgr_timeofday+"/previous_hover.png"
 
                 if BdgrRandomSong: 
                     action [ Function(bdgr_random_song) ] 
@@ -292,6 +270,38 @@ screen bdgr_music_room():
                     action [ Function(bdgr_next_track, back=True) ]
                 mouse "hover_anim" 
                   
+
+        ########################################################################
+        # Volume
+
+        vbox pos(1182,200) spacing 305:
+            imagebutton:
+                idle "music_room/gui/volume_max_idle.png"
+                hover "music_room/gui/"+bdgr_timeofday+"/volume_max_hover.png"
+                action Function(preferences.set_volume, u'bdgr_music_room_mixer',
+                                volume=min_func(1.0, preferences.get_volume(u'bdgr_music_room_mixer') + .1))
+                mouse "hover_anim" 
+
+            imagebutton:
+                idle "music_room/gui/volume_min_idle.png"
+                hover "music_room/gui/"+bdgr_timeofday+"/volume_min_hover.png"
+                action Function(preferences.set_volume, u'bdgr_music_room_mixer',
+                                volume=max(0.0, preferences.get_volume(u'bdgr_music_room_mixer') - .1))
+                mouse "hover_anim" 
+
+        vbar:
+            # anchor (.5, .5)
+            xpos 1177
+            ypos 255
+
+            ysize 280
+            xsize 38
+
+            thumb_offset 21.5
+
+            value Preference("bdgr_music_room_mixer volume")
+            mouse "hover_anim" bottom_bar "music_room/gui/vbar_full.png" top_bar "music_room/gui/vbar_null.png" thumb "music_room/gui/vthumb_idle.png" hover_thumb "music_room/gui/"+bdgr_timeofday+"/vthumb_hover.png"
+
 
         ########################################################################
         # Progress

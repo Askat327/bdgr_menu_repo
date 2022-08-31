@@ -1,4 +1,6 @@
 init -1000 python:
+    translation_ru.update({"Save_game_bdgr": "СОХРАНИТЬ"})
+    translation_ru.update({"Load_game_bdgr": "ЗАГРУЗИТЬ"})
     translation_ru.update({"on": "Включить"})
     translation_ru.update({"off": "Выключить"})
     translation_ru.update({"small": "Обычный"})
@@ -12,6 +14,8 @@ init -1000 python:
     translation_ru.update({"chars": "ПЕРСОНАЖИ"})
     translation_ru.update({"mus": "МУЗЫКА"})
 
+    translation_en.update({"Save_game_bdgr": "SAVE"})
+    translation_en.update({"Load_game_bdgr": "LOAD"})
     translation_en.update({"on": "On"})
     translation_en.update({"off": "Off"})
     translation_en.update({"small": "Default"})
