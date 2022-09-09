@@ -27,31 +27,33 @@ init python:
     style.bdgr_phone_text.font =                                     "bdgr/fonts/Montserrat-Regular.ttf"
     style.bdgr_phone_text.size =                                     40
 
-    style.bdgr_winter_phone_menu =                                   Style(style.default)
-    style.bdgr_winter_phone_menu.font =                              "bdgr/fonts/Montserrat-Regular.ttf"
-    style.bdgr_winter_phone_menu.size =                              40
+
+    style.bdgr_winter_phone_textbutton =                             Style(style.bdgr_phone_text)
+    style.bdgr_winter_phone_textbutton.outlines =                    [ (absolute(1), "#00000000", absolute(0), absolute(0)) ]
+    style.bdgr_winter_phone_textbutton.hover_outlines =              [ (absolute(1), "#3c3e50", absolute(0), absolute(0)) ]
+
+    style.bdgr_sunset_phone_textbutton =                             Style(style.bdgr_phone_text)
+    style.bdgr_sunset_phone_textbutton.outlines =                    [ (absolute(1), "#00000000", absolute(0), absolute(0)) ]
+    style.bdgr_sunset_phone_textbutton.hover_outlines =              [ (absolute(1), "#4a3a48", absolute(0), absolute(0)) ]
+
+    style.bdgr_night_phone_textbutton =                              Style(style.bdgr_phone_text)
+    style.bdgr_night_phone_textbutton.outlines =                     [ (absolute(1), "#00000000", absolute(0), absolute(0)) ]
+    style.bdgr_night_phone_textbutton.hover_outlines =               [ (absolute(1), "#4c3652", absolute(0), absolute(0)) ]
+
+
+    style.bdgr_winter_phone_menu =                                   Style(style.bdgr_phone_text)
     style.bdgr_winter_phone_menu.color =                             "#fff"
     style.bdgr_winter_phone_menu.hover_color =                       "#a4ccf1"
-    style.bdgr_winter_phone_menu.hover_drop_shadow =                 (0,0)
-    style.bdgr_winter_phone_menu.hover_drop_shadow_color =           "#3c3e50"
     style.bdgr_winter_phone_menu.background =                        Null()
 
-    style.bdgr_sunset_phone_menu =                                   Style(style.default)
-    style.bdgr_sunset_phone_menu.font =                              "bdgr/fonts/Montserrat-Regular.ttf"
-    style.bdgr_sunset_phone_menu.size =                              40
+    style.bdgr_sunset_phone_menu =                                   Style(style.bdgr_phone_text)
     style.bdgr_sunset_phone_menu.color =                             "#fff"
     style.bdgr_sunset_phone_menu.hover_color =                       "#f6b2c2"
-    style.bdgr_sunset_phone_menu.hover_drop_shadow =                 (0,0)
-    style.bdgr_sunset_phone_menu.hover_drop_shadow_color =           "#4a3a48"
     style.bdgr_sunset_phone_menu.background =                        Null()
 
-    style.bdgr_night_phone_menu =                                   Style(style.default)
-    style.bdgr_night_phone_menu.font =                              "bdgr/fonts/Montserrat-Regular.ttf"
-    style.bdgr_night_phone_menu.size =                              40
+    style.bdgr_night_phone_menu =                                   Style(style.bdgr_phone_text)
     style.bdgr_night_phone_menu.color =                             "#fff"
     style.bdgr_night_phone_menu.hover_color =                       "#ffd679"
-    style.bdgr_night_phone_menu.hover_drop_shadow =                 (0,0)
-    style.bdgr_night_phone_menu.hover_drop_shadow_color =           "#4c3652"
     style.bdgr_night_phone_menu.background =                        Null()
 
     # Словарь цветов для текст-кнопок в меню настроек
@@ -514,14 +516,14 @@ screen bdgr_preferences:
                             add "bdgr/imgs/gui/settings/"+tod+"/button_on.png"
                         else:
                             add "bdgr/imgs/gui/settings/"+tod+"/button_off.png"
-                        textbutton translation_new["Window"] style "bdgr_"+tod+"phone_menu" text_style "bdgr_phone_text" yalign 0.5 action Preference("display", "window") mouse "hover_anim"
+                        textbutton translation_new["Window"] style "bdgr_"+tod+"_phone_menu" text_style "bdgr_"+tod+"_phone_textbutton" yalign 0.5 action Preference("display", "window") mouse "hover_anim"
 
                     hbox:
                         if _preferences.fullscreen:
                             add "bdgr/imgs/gui/settings/"+tod+"/button_on.png"
                         else:
                             add "bdgr/imgs/gui/settings/"+tod+"/button_off.png"
-                        textbutton translation_new["Fullscreen"] style "bdgr_"+tod+"phone_menu" text_style "bdgr_phone_text" yalign 0.5 action Preference("display", "fullscreen") mouse "hover_anim"
+                        textbutton translation_new["Fullscreen"] style "bdgr_"+tod+"_phone_menu" text_style "bdgr_"+tod+"_phone_textbutton" yalign 0.5 action Preference("display", "fullscreen") mouse "hover_anim"
 
                 text translation_new["game_mode"] style "bdgr_phone_text" xalign 0.5 color phone_colors[tod] size 55
                 grid 1 1 xfill True:
@@ -529,28 +531,28 @@ screen bdgr_preferences:
                         if persistent.game_mode == "animated":
                             add "bdgr/imgs/gui/settings//"+tod+"/button_on.png"
                             if tod == "winter":
-                                textbutton "{color=#a4ccf1}"+translation_new["the_interactive"]+"{/color}"+translation_new["interactive_desc"] style "bdgr_"+tod+"phone_menu" text_style "bdgr_phone_text" yalign 0.5 action SetVariable("persistent.game_mode", "static") mouse "hover_anim"
+                                textbutton "{color=#a4ccf1}"+translation_new["the_interactive"]+"{/color}"+translation_new["interactive_desc"] style "bdgr_"+tod+"_phone_menu" text_style "bdgr_"+tod+"_phone_textbutton" yalign 0.5 action SetVariable("persistent.game_mode", "static") mouse "hover_anim"
                             if tod == "sunset":
-                                textbutton "{color=#f6b2c2}"+translation_new["the_interactive"]+"{/color}"+translation_new["interactive_desc"] style "bdgr_"+tod+"phone_menu" text_style "bdgr_phone_text" yalign 0.5 action SetVariable("persistent.game_mode", "static") mouse "hover_anim"
+                                textbutton "{color=#f6b2c2}"+translation_new["the_interactive"]+"{/color}"+translation_new["interactive_desc"] style "bdgr_"+tod+"_phone_menu" text_style "bdgr_"+tod+"_phone_textbutton" yalign 0.5 action SetVariable("persistent.game_mode", "static") mouse "hover_anim"
                             if tod == "night":
-                                textbutton "{color=#ffd679}"+translation_new["the_interactive"]+"{/color}"+translation_new["interactive_desc"] style "bdgr_"+tod+"phone_menu" text_style "bdgr_phone_text" yalign 0.5 action SetVariable("persistent.game_mode", "static") mouse "hover_anim"
+                                textbutton "{color=#ffd679}"+translation_new["the_interactive"]+"{/color}"+translation_new["interactive_desc"] style "bdgr_"+tod+"_phone_menu" text_style "bdgr_"+tod+"_phone_textbutton" yalign 0.5 action SetVariable("persistent.game_mode", "static") mouse "hover_anim"
                         else:
                             add "bdgr/imgs/gui/settings/"+tod+"/button_off.png"
-                            textbutton translation_new["the_interactive"]+translation_new["interactive_desc"] style "bdgr_"+tod+"phone_menu" text_style "bdgr_phone_text" yalign 0.5 action SetVariable("persistent.game_mode", "animated") mouse "hover_anim"
+                            textbutton translation_new["the_interactive"]+translation_new["interactive_desc"] style "bdgr_"+tod+"_phone_menu" text_style "bdgr_"+tod+"_phone_textbutton" yalign 0.5 action SetVariable("persistent.game_mode", "animated") mouse "hover_anim"
 
                 grid 1 1 xfill True:
                     hbox:
                         if persistent.game_mode == "static":
                             add "bdgr/imgs/gui/settings//"+tod+"/button_on.png"
                             if tod == "winter":
-                                textbutton "{color=#a4ccf1}"+translation_new["the_static"]+"{/color}"+translation_new["static_desc"] style "bdgr_"+tod+"phone_menu" text_style "bdgr_phone_text" yalign 0.5 action SetVariable("persistent.game_mode", "animated") mouse "hover_anim"
+                                textbutton "{color=#a4ccf1}"+translation_new["the_static"]+"{/color}"+translation_new["static_desc"] style "bdgr_"+tod+"_phone_menu" text_style "bdgr_"+tod+"_phone_textbutton" yalign 0.5 action SetVariable("persistent.game_mode", "animated") mouse "hover_anim"
                             if tod == "sunset":
-                                textbutton "{color=#f6b2c2}"+translation_new["the_static"]+"{/color}"+translation_new["static_desc"] style "bdgr_"+tod+"phone_menu" text_style "bdgr_phone_text" yalign 0.5 action SetVariable("persistent.game_mode", "animated") mouse "hover_anim"
+                                textbutton "{color=#f6b2c2}"+translation_new["the_static"]+"{/color}"+translation_new["static_desc"] style "bdgr_"+tod+"_phone_menu" text_style "bdgr_"+tod+"_phone_textbutton" yalign 0.5 action SetVariable("persistent.game_mode", "animated") mouse "hover_anim"
                             if tod == "night":
-                                textbutton "{color=#ffd679}"+translation_new["the_static"]+"{/color}"+translation_new["static_desc"] style "bdgr_"+tod+"phone_menu" text_style "bdgr_phone_text" yalign 0.5 action SetVariable("persistent.game_mode", "animated") mouse "hover_anim"
+                                textbutton "{color=#ffd679}"+translation_new["the_static"]+"{/color}"+translation_new["static_desc"] style "bdgr_"+tod+"_phone_menu" text_style "bdgr_"+tod+"_phone_textbutton" yalign 0.5 action SetVariable("persistent.game_mode", "animated") mouse "hover_anim"
                         else:
                             add "bdgr/imgs/gui/settings/"+tod+"/button_off.png"
-                            textbutton translation_new["the_static"]+translation_new["static_desc"] style "bdgr_"+tod+"phone_menu" text_style "bdgr_phone_text" yalign 0.5 action SetVariable("persistent.game_mode", "static") mouse "hover_anim"
+                            textbutton translation_new["the_static"]+translation_new["static_desc"] style "bdgr_"+tod+"_phone_menu" text_style "bdgr_"+tod+"_phone_textbutton" yalign 0.5 action SetVariable("persistent.game_mode", "static") mouse "hover_anim"
 
                 text translation_new["the_text"] style "bdgr_phone_text" xalign 0.5 color phone_colors[tod] size 55
                 grid 3 1 xfill True:
@@ -561,14 +563,14 @@ screen bdgr_preferences:
                             add "bdgr/imgs/gui/settings//"+tod+"/button_on.png"
                         else:
                             add "bdgr/imgs/gui/settings/"+tod+"/button_off.png"
-                        textbutton translation_new["on"] style "bdgr_"+tod+"phone_menu" text_style "bdgr_phone_text" yalign 0.5 action Preference("auto-forward after click", "enable") mouse "hover_anim"
+                        textbutton translation_new["on"] style "bdgr_"+tod+"_phone_menu" text_style "bdgr_"+tod+"_phone_textbutton" yalign 0.5 action Preference("auto-forward after click", "enable") mouse "hover_anim"
 
                     hbox:
                         if _preferences.afm_time == 0:
                             add "bdgr/imgs/gui/settings//"+tod+"/button_on.png"
                         else:
                             add "bdgr/imgs/gui/settings/"+tod+"/button_off.png"
-                        textbutton translation_new["off"] style "bdgr_"+tod+"phone_menu" text_style "bdgr_phone_text" yalign 0.5 action (Preference("auto-forward time", 0), Preference("auto-forward after click", "disable")) mouse "hover_anim"
+                        textbutton translation_new["off"] style "bdgr_"+tod+"_phone_menu" text_style "bdgr_"+tod+"_phone_textbutton" yalign 0.5 action (Preference("auto-forward time", 0), Preference("auto-forward after click", "disable")) mouse "hover_anim"
 
                 # $ aft = Preference("auto-forward time")
                 grid 2 1:
@@ -586,14 +588,14 @@ screen bdgr_preferences:
                             add "bdgr/imgs/gui/settings//"+tod+"/button_on.png"
                         else:
                             add "bdgr/imgs/gui/settings/"+tod+"/button_off.png"
-                        textbutton translation_new["small"] style "bdgr_"+tod+"phone_menu" text_style "bdgr_phone_text" yalign 0.5 action SetField(persistent, "font_size", "small") mouse "hover_anim"
+                        textbutton translation_new["small"] style "bdgr_"+tod+"_phone_menu" text_style "bdgr_"+tod+"_phone_textbutton" yalign 0.5 action SetField(persistent, "font_size", "small") mouse "hover_anim"
 
                     hbox:
                         if not persistent.font_size == "small":
                             add "bdgr/imgs/gui/settings//"+tod+"/button_on.png"
                         else:
                             add "bdgr/imgs/gui/settings/"+tod+"/button_off.png"
-                        textbutton translation_new["large"] style "bdgr_"+tod+"phone_menu" text_style "bdgr_phone_text" yalign 0.5 action SetField(persistent, "font_size", "large") mouse "hover_anim"
+                        textbutton translation_new["large"] style "bdgr_"+tod+"_phone_menu" text_style "bdgr_"+tod+"_phone_textbutton" yalign 0.5 action SetField(persistent, "font_size", "large") mouse "hover_anim"
                 
                 grid 3 1 xfill True:
                     text translation_new["Skip"]+":" style "bdgr_phone_text" yalign 0.5
@@ -603,14 +605,14 @@ screen bdgr_preferences:
                             add "bdgr/imgs/gui/settings//"+tod+"/button_on.png"
                         else:
                             add "bdgr/imgs/gui/settings/"+tod+"/button_off.png"
-                        textbutton translation_new["Skip_seen"] style "bdgr_"+tod+"phone_menu" text_style "bdgr_phone_text" yalign 0.5 action Preference("skip", "seen") mouse "hover_anim"
+                        textbutton translation_new["Skip_seen"] style "bdgr_"+tod+"_phone_menu" text_style "bdgr_"+tod+"_phone_textbutton" yalign 0.5 action Preference("skip", "seen") mouse "hover_anim"
 
                     hbox:
                         if _preferences.skip_unseen:
                             add "bdgr/imgs/gui/settings//"+tod+"/button_on.png"
                         else:
                             add "bdgr/imgs/gui/settings/"+tod+"/button_off.png"
-                        textbutton translation_new["Skip_all"] style "bdgr_"+tod+"phone_menu" text_style "bdgr_phone_text" yalign 0.5 action Preference("skip", "all") mouse "hover_anim"
+                        textbutton translation_new["Skip_all"] style "bdgr_"+tod+"_phone_menu" text_style "bdgr_"+tod+"_phone_textbutton" yalign 0.5 action Preference("skip", "all") mouse "hover_anim"
 
                 grid 2 1:
                     text translation_new["Text_speed"]+":" style "bdgr_phone_text"
@@ -618,15 +620,15 @@ screen bdgr_preferences:
 
                 text translation_new["Volume"]+":" style "bdgr_phone_text" xalign 0.5 color phone_colors[tod] size 55
                 grid 2 1:
-                    textbutton translation_new["Music_lower"] style "bdgr_"+tod+"phone_menu" text_style "bdgr_phone_text" action Play("sound", "sound/test.ogg") mouse "hover_anim"
+                    textbutton translation_new["Music_lower"] style "bdgr_"+tod+"_phone_menu" text_style "bdgr_"+tod+"_phone_textbutton" action Play("sound", "sound/test.ogg") mouse "hover_anim"
                     bar value Preference("music volume") mouse "hover_anim" left_bar "bdgr/imgs/gui/settings/"+tod+"/second_bar_full.png" right_bar "bdgr/imgs/gui/settings/"+tod+"/second_bar_null.png" idle_thumb "bdgr/imgs/gui/settings/"+tod+"/second_htumb.png" hover_thumb "bdgr/imgs/gui/settings/"+tod+"/second_htumb_hover.png" selected_thumb "bdgr/imgs/gui/settings/"+tod+"/second_htumb_selected.png" thumb_offset 35 xsize 628 ysize 60 left_gutter 30
 
                 grid 2 1:
-                    textbutton translation_new["Sound"] style "bdgr_"+tod+"phone_menu" text_style "bdgr_phone_text" action Play("sound", "sound/test.ogg") mouse "hover_anim"
+                    textbutton translation_new["Sound"] style "bdgr_"+tod+"_phone_menu" text_style "bdgr_"+tod+"_phone_textbutton" action Play("sound", "sound/test.ogg") mouse "hover_anim"
                     bar value Preference("sound volume") mouse "hover_anim" left_bar "bdgr/imgs/gui/settings/"+tod+"/second_bar_full.png" right_bar "bdgr/imgs/gui/settings/"+tod+"/second_bar_null.png" idle_thumb "bdgr/imgs/gui/settings/"+tod+"/second_htumb.png" hover_thumb "bdgr/imgs/gui/settings/"+tod+"/second_htumb_hover.png" selected_thumb "bdgr/imgs/gui/settings/"+tod+"/second_htumb_selected.png" thumb_offset 35 xsize 628 ysize 60 left_gutter 30
 
                 grid 2 1:
-                    textbutton translation_new["Ambience"] style "bdgr_"+tod+"phone_menu" text_style "bdgr_phone_text" action Play("sound", "sound/test.ogg") mouse "hover_anim"
+                    textbutton translation_new["Ambience"] style "bdgr_"+tod+"_phone_menu" text_style "bdgr_"+tod+"_phone_textbutton" action Play("sound", "sound/test.ogg") mouse "hover_anim"
                     bar value Preference("voice volume") mouse "hover_anim" left_bar "bdgr/imgs/gui/settings/"+tod+"/second_bar_full.png" right_bar "bdgr/imgs/gui/settings/"+tod+"/second_bar_null.png" idle_thumb "bdgr/imgs/gui/settings/"+tod+"/second_htumb.png" hover_thumb "bdgr/imgs/gui/settings/"+tod+"/second_htumb_hover.png" selected_thumb "bdgr/imgs/gui/settings/"+tod+"/second_htumb_selected.png" thumb_offset 35 xsize 628 ysize 60 left_gutter 30
 
                 text translation_new["Language"]+":" style "bdgr_phone_text" xalign 0.5 color phone_colors[tod] size 55
@@ -634,18 +636,18 @@ screen bdgr_preferences:
                     hbox:
                         if _preferences.language == None:
                             add "bdgr/imgs/gui/settings//"+tod+"/button_on.png"
-                            textbutton translation_new["Russian"] style "bdgr_"+tod+"phone_menu" text_style "bdgr_phone_text" yalign 0.5 action NullAction()
+                            textbutton translation_new["Russian"] style "bdgr_"+tod+"_phone_menu" text_style "bdgr_"+tod+"_phone_textbutton" yalign 0.5 action NullAction()
                         else:
                             add "bdgr/imgs/gui/settings/"+tod+"/button_off.png"
-                            textbutton translation_new["Russian"] style "bdgr_"+tod+"phone_menu" text_style "bdgr_phone_text" yalign 0.5 action (SetField(config, "window_title", "Бесконечное Лето"), SetField(persistent, "show_hentai_ach", False), Language(None), Function(reload_names), Function(stop_music), Function(bdgr_screens_save_activate), Function(renpy.utter_restart)) mouse "hover_anim"
+                            textbutton translation_new["Russian"] style "bdgr_"+tod+"_phone_menu" text_style "bdgr_"+tod+"_phone_textbutton" yalign 0.5 action (SetField(config, "window_title", "Бесконечное Лето"), SetField(persistent, "show_hentai_ach", False), Language(None), Function(reload_names), Function(stop_music), Function(bdgr_screens_save_activate), Function(renpy.utter_restart)) mouse "hover_anim"
 
                     hbox:
                         if _preferences.language == "english":
                             add "bdgr/imgs/gui/settings//"+tod+"/button_on.png"
-                            textbutton translation_new["English"] style "bdgr_"+tod+"phone_menu" text_style "bdgr_phone_text" yalign 0.5 action NullAction()
+                            textbutton translation_new["English"] style "bdgr_"+tod+"_phone_menu" text_style "bdgr_"+tod+"_phone_textbutton" yalign 0.5 action NullAction()
                         else:
                             add "bdgr/imgs/gui/settings/"+tod+"/button_off.png"
-                            textbutton translation_new["English"] style "bdgr_"+tod+"phone_menu" text_style "bdgr_phone_text" yalign 0.5 action NullAction()#(SetField(config, "window_title", "Everlasting Summer"), SetField(persistent, "show_hentai_ach", False), Language("english"), Function(reload_names), Function(stop_music), Function(bdgr_screens_save_activate), Function(renpy.utter_restart)) mouse "hover_anim"
+                            textbutton translation_new["English"] style "bdgr_"+tod+"_phone_menu" text_style "bdgr_"+tod+"_phone_textbutton" yalign 0.5 action NullAction()#(SetField(config, "window_title", "Everlasting Summer"), SetField(persistent, "show_hentai_ach", False), Language("english"), Function(reload_names), Function(stop_music), Function(bdgr_screens_save_activate), Function(renpy.utter_restart)) mouse "hover_anim"
 
             vbar value YScrollValue("preferences") mouse "hover_anim" bottom_bar "images/misc/none.png" top_bar "images/misc/none.png" thumb "bdgr/imgs/gui/settings/"+tod+"/vthumb.png" xpos 14 xmaximum 46 ymaximum 804
 
