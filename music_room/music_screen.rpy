@@ -95,6 +95,7 @@ image playPauseButton = DynamicDisplayable(bdgr_auto_play_pause_button)
 
 screen bdgr_music_room():
     modal True tag menu
+    $ tod = persistent.bdgr_tod
 
     style_prefix "bdgr_music_room"
 
@@ -102,7 +103,7 @@ screen bdgr_music_room():
     default track_opened = bool(bdgr_game_soundtrack)
 
     add "images/bg/ext_beach_sunset.jpg"
-    add "music_room/gui/"+bdgr_timeofday+"/player.png" pos(589,24)
+    add "music_room/gui/"+tod+"/player.png" pos(589,24)
     text translation_new["mus"] pos(835,50) style "bdgr_phone_menu" size 50 color "#e8f2fb"
     
 
@@ -217,10 +218,10 @@ screen bdgr_music_room():
                     xysize (64, 64)
 
                 if BdgrLoopSong:
-                    idle "music_room/gui/"+bdgr_timeofday+"/repeat_hover.png"
+                    idle "music_room/gui/"+tod+"/repeat_hover.png"
                 else:
                     idle "music_room/gui/repeat_idle.png"
-                    hover "music_room/gui/"+bdgr_timeofday+"/repeat_hover.png"
+                    hover "music_room/gui/"+tod+"/repeat_hover.png"
 
                 action ToggleVariable("BdgrLoopSong", False, True)
                 mouse "hover_anim" 
@@ -232,10 +233,10 @@ screen bdgr_music_room():
                     xysize (64, 64)
 
                 if BdgrRandomSong:
-                    idle "music_room/gui/"+bdgr_timeofday+"/random_hover.png"
+                    idle "music_room/gui/"+tod+"/random_hover.png"
                 else:
                     idle "music_room/gui/random_idle.png"
-                    hover "music_room/gui/"+bdgr_timeofday+"/random_hover.png"
+                    hover "music_room/gui/"+tod+"/random_hover.png"
                 
                 action ToggleVariable("BdgrRandomSong", False, True) 
                 mouse "hover_anim" 
@@ -247,7 +248,7 @@ screen bdgr_music_room():
                     xysize (64, 64) 
 
                 idle "music_room/gui/next_idle.png"
-                hover "music_room/gui/"+bdgr_timeofday+"/next_hover.png"
+                hover "music_room/gui/"+tod+"/next_hover.png"
 
                 if BdgrRandomSong: 
                     action [ Function(bdgr_random_song) ] 
@@ -262,7 +263,7 @@ screen bdgr_music_room():
                     xysize (64, 64) 
 
                 idle "music_room/gui/previous_idle.png"
-                hover "music_room/gui/"+bdgr_timeofday+"/previous_hover.png"
+                hover "music_room/gui/"+tod+"/previous_hover.png"
 
                 if BdgrRandomSong: 
                     action [ Function(bdgr_random_song) ] 
@@ -277,14 +278,14 @@ screen bdgr_music_room():
         vbox pos(1182,200) spacing 305:
             imagebutton:
                 idle "music_room/gui/volume_max_idle.png"
-                hover "music_room/gui/"+bdgr_timeofday+"/volume_max_hover.png"
+                hover "music_room/gui/"+tod+"/volume_max_hover.png"
                 action Function(preferences.set_volume, u'bdgr_music_room_mixer',
                                 volume=min_func(1.0, preferences.get_volume(u'bdgr_music_room_mixer') + .1))
                 mouse "hover_anim" 
 
             imagebutton:
                 idle "music_room/gui/volume_min_idle.png"
-                hover "music_room/gui/"+bdgr_timeofday+"/volume_min_hover.png"
+                hover "music_room/gui/"+tod+"/volume_min_hover.png"
                 action Function(preferences.set_volume, u'bdgr_music_room_mixer',
                                 volume=max(0.0, preferences.get_volume(u'bdgr_music_room_mixer') - .1))
                 mouse "hover_anim" 
@@ -300,7 +301,7 @@ screen bdgr_music_room():
             thumb_offset 21.5
 
             value Preference("bdgr_music_room_mixer volume")
-            mouse "hover_anim" bottom_bar "music_room/gui/vbar_full.png" top_bar "music_room/gui/vbar_null.png" thumb "music_room/gui/vthumb_idle.png" hover_thumb "music_room/gui/"+bdgr_timeofday+"/vthumb_hover.png"
+            mouse "hover_anim" bottom_bar "music_room/gui/vbar_full.png" top_bar "music_room/gui/vbar_null.png" thumb "music_room/gui/vthumb_idle.png" hover_thumb "music_room/gui/"+tod+"/vthumb_hover.png"
 
 
         ########################################################################

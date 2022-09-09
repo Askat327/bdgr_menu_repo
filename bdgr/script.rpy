@@ -1,16 +1,13 @@
 python early:
 
-    bdgr_timeofday = "night"
-
-    def bdgr_default():
+    def bdgr_default(): # Функция для запуска мода раньше ваниллы
         rgsn = renpy.game.script.namemap
         rgsn["splashscreen"] = rgsn["bdgr"]
-
 
 init python:
     mods["bdgr"] = u"Я.Д.С.Д Главное меню"
 
-    persistent.game_mode == "static"
+    persistent.game_mode == "static" # постоянная переменная для режима игры. переключается в меню настроек
 
     bdgr_screen_list = ["main_menu","save","load","gallery","gallery_sp","preferences","yesno_prompt","game_menu_selector","music_room","say","nvl","text_history_screen","choice","quit"]
 
@@ -37,7 +34,7 @@ init python:
         bdgr_screens_save()
         bdgr_screens_activate()
 
-    def bdgr_mouse_change(tod="winter"):
+    def bdgr_mouse_change(tod="winter"): # функция для изменения курсора
         if tod == "winter":
             config.mouse_displayable = MouseDisplayable("bdgr/imgs/gui/cursor/winter/mouse_default.png", 0, 0).add("hover_anim", "bdgr_cursor_anim_w", 0, 0)
         elif tod == "sunset":
@@ -45,7 +42,7 @@ init python:
         elif tod == "night":
             config.mouse_displayable = MouseDisplayable("bdgr/imgs/gui/cursor/night/mouse_default.png", 0, 0).add("hover_anim", "bdgr_cursor_anim_n", 0, 0)
 
-    bdgr_characters = {
+    bdgr_characters = { # Словарь персонажей
         "narrator":[None, None],
         "th":[None, None],
 
@@ -62,7 +59,8 @@ init python:
 
     def bdgr_chars_define(kind=adv):
         gl = globals()
-    # присваивания ctc
+
+        # присваивания ctc
         if kind == nvl:
             who_suffix = ":"
             ctc_star = "ctc_star_nvl"
@@ -116,12 +114,13 @@ init python:
         nvl_clear()
         bdgr_chars_define(kind=mode)
     
-    vertical_dis = ImageDissolve("bdgr/imgs/misc/vertical_dissolve.jpg", 1.5)
+    vertical_dis = ImageDissolve("bdgr/imgs/misc/vertical_dissolve.jpg", 1.5) # переход
 
-    # bdgr_default()
+    bdgr_default()
 
 init:
 
+    # курсоры
     image bdgr_cursor_anim_w:
         "bdgr/imgs/gui/cursor/winter/1.png"
         pause 0.1
@@ -258,6 +257,8 @@ label bdgr:
     pause .02
     scene black with Fade(.02, 0, 1, color="#fff")
 
+    $ persistent.bdgr_tod = "winter"
+
     return
 
 
@@ -269,11 +270,11 @@ label bdgr_start:
     show bdgr_skip_anim_winter at truecenter, left
     with dissolve
     
-    $ bdgr_timeofday = "winter"
+    $ persistent.bdgr_tod = "winter"
     $ bdgr_mouse_change("winter")
-    "bdgr_timeofday=\"winter\""
-    "bdgr_timeofday=\"winter\""
-    "bdgr_timeofday=\"winter\""
+    "persistent.bdgr_tod=\"winter\""
+    "persistent.bdgr_tod=\"winter\""
+    "persistent.bdgr_tod=\"winter\""
     me "Я Семён"
     grl "Я девочка"
     who "Сука я кто?"
@@ -304,7 +305,7 @@ label bdgr_start:
         "Da":
             pass
         "Niet":
-            $ bdgr_timeofday = "winter"
+            $ persistent.bdgr_tod = "winter"
             $ bdgr_mouse_change("winter")
             return
 
@@ -313,11 +314,11 @@ label bdgr_start:
     show bdgr_skip_anim_sunset at truecenter, left
     with dissolve
 
-    $ bdgr_timeofday = "sunset"
+    $ persistent.bdgr_tod = "sunset"
     $ bdgr_mouse_change("sunset")
-    "bdgr_timeofday=\"sunset\""
-    "bdgr_timeofday=\"sunset\""
-    "bdgr_timeofday=\"sunset\""
+    "persistent.bdgr_tod=\"sunset\""
+    "persistent.bdgr_tod=\"sunset\""
+    "persistent.bdgr_tod=\"sunset\""
     me "Я Семён"
     grl "Я девочка"
     who "Сука я кто?"
@@ -348,7 +349,7 @@ label bdgr_start:
         "Da":
             pass
         "Niet":
-            $ bdgr_timeofday = "winter"
+            $ persistent.bdgr_tod = "winter"
             $ bdgr_mouse_change("winter")
             return
 
@@ -357,11 +358,11 @@ label bdgr_start:
     show bdgr_skip_anim_night at truecenter, left
     with dissolve
 
-    $ bdgr_timeofday = "night"
+    $ persistent.bdgr_tod = "night"
     $ bdgr_mouse_change("night")
-    "bdgr_timeofday=\"night\""
-    "bdgr_timeofday=\"night\""
-    "bdgr_timeofday=\"night\""
+    "persistent.bdgr_tod=\"night\""
+    "persistent.bdgr_tod=\"night\""
+    "persistent.bdgr_tod=\"night\""
     me "Я Семён"
     grl "Я девочка"
     who "Сука я кто?"
@@ -392,6 +393,6 @@ label bdgr_start:
         "Da":
             pass
         "Niet":
-            $ bdgr_timeofday = "winter"
+            $ persistent.bdgr_tod = "winter"
             $ bdgr_mouse_change("winter")
             return
